@@ -37,7 +37,7 @@ h3{
     margin: 6px 0;
     overflow: hidden;
 }
-.task a{
+.task i{
     float: right;
     margin-left: 20px;
     cursor: pointer;

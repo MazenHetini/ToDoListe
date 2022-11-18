@@ -21,6 +21,7 @@ $(".txtb").on("keyup", function(e){
             });
             $(this).remove();
         });
+        task.append(del,check);
 
         $(".notcomp").append(task);
         // Eingabefeld leeren
