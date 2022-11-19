@@ -1,17 +1,16 @@
-[
-    "Reise um die Welt!",
-    "Lerne eine neue Sprache!",
-    "Probiere einen Beruf in einem anderen Bereich aus!",
-    "Erreiche deinen idealen Fitnesszustand!",
-    "Lauf einen Marathon!",
-    "Nimm an einem Triathlon teil!",
-    "Fange eine neue Sportart an!",
-    "Geh Tauchen!",
-    "Geh Skifahren!",
-    "Trekke im Himalaya!",
-    "Probiere einen Extremsport aus!",
-    "Besteige einen Berg!",
-    "Lerne ein Strategiespiel!",
-    "Lass jemanden wissen, wie viel er/sie dir bedeutet!",
-    "Überrasche jemanden!"
-]
+{
+    "tasks": [
+        {
+            "label": "Reise um die Welt!"
+        },
+        {
+            "label": "Lerne eine neue Sprache!"
+        },
+        {
+            "label": "Probiere einen Beruf in einem anderen Bereich aus!"
+        },
+        {
+            "label": "Erreiche deinen idealen Fitnesszustand!"
+        }
+    ]
+}

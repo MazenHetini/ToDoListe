@@ -1,3 +1,4 @@
+/*
 $.ajax({
     url: 'JSON/vorschlag.json',
     dataType: 'json',
@@ -5,13 +6,21 @@ $.ajax({
     cache: false,
     success: function (data) {
         $(data).each(function (index, value) {
-            console.log(value);
+            console.log(index, value);
         });
-        for (let i = 0; i < data.length; i++) {
-            let suggestion = "<p>" + data[i] + "</p>";
-            $(".suggestions").append(suggestion);
-        }
     }
+});
+*/
+
+let data = [];
+$.getJSON('JSON/vorschlag.json', function(result){
+    $.each(result, function(index, val){
+        data.push(val);
+    });
+});
+
+$( "#autoCheck" ).autocomplete({
+    source: data
 });
 
 $(".txtb").on("keyup", function (e) {
