@@ -14,7 +14,7 @@ $.ajax({
 
 let data = [];
 $.getJSON('JSON/vorschlag.json', function(result){
-    $.each(result, function(index, val){
+    $.each(result.tasks, function(index, val){
         data.push(val);
     });
 });
