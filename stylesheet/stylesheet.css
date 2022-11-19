@@ -9,13 +9,16 @@ box-sizing: border-box;
 }
 
 body{
-    background-color: #e67e22;
-    min-height: 100vh;;
+    background-color: #009d9a;
+    min-height: 100vh;
+    position: relative;
+    padding: 20px;
 }
 .container{
     max-width: 800px;
     margin: auto;
     padding: 10px;
+    
 }
 .txtb{
     width: 100%;
@@ -26,6 +29,10 @@ body{
     outline: none;
     font-size: 18px;
     font-weight: bold;
+}
+.txtb::placeholder{
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: normal;
 }
 h3{
     margin: 10px 0; 
@@ -45,4 +52,15 @@ h3{
 .comp .task{
     background: rgba(0, 0, 0, 0.5);
     color: white;
+}
+.suggestions{
+    position: absolute;
+    bottom: 0;
+}
+.suggestions p{
+    background-color: white;
+    margin: 6px;
+    padding: 6px;
+    display: inline-block;
+    cursor: pointer;
 }
