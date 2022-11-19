@@ -60,33 +60,3 @@ $(".txtb").on("keyup", function (e) {
         $(".txtb").val("");
     }
 });
-
-{
-    function suggestionToTask() {
-        // JSON-File mit AJAX laden
-        let xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-            if (xhr.status != 200) return;
-
-            let jsonParsed;
-
-            if (xhr.responseType == "json") jsonParsed = xhr.response;
-            else jsonParsed = JSON.parse(xhr.responseText);
-
-            for (let i = 0; i < jsonParsed.length; i++) {
-                let suggestion = "<p>" + jsonParsed[i] + "</p>";
-                $(".suggestions").append(suggestion);
-            }
-        };
-
-        xhr.open("GET", "JSON/vorschlag.json");
-        xhr.responseType = "json";
-        xhr.send();
-
-
-    }
-}
-
-
-
-
