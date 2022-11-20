@@ -9,17 +9,15 @@ box-sizing: border-box;
 }
 
 body{
-    background-color: #009d9a;
-    min-height: 100vh;
-    padding: 20px;
+    background-color: #e67e22;
+    min-height: 100vh;;
 }
 .container{
     max-width: 800px;
     margin: auto;
     padding: 10px;
-    
 }
-.txtb{
+.inputValue{
     width: 100%;
     border: none;
     border-bottom: 2px solid white;
@@ -28,10 +26,6 @@ body{
     outline: none;
     font-size: 18px;
     font-weight: bold;
-}
-.txtb::placeholder{
-    color: rgba(255, 255, 255, 0.4);
-    font-weight: normal;
 }
 h3{
     margin: 10px 0; 

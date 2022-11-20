@@ -1,16 +1,19 @@
 {
     "tasks": [
         {
-            "label": "Reise um die Welt!"
+            "value": "Einkaufen"
         },
         {
-            "label": "Lerne eine neue Sprache!"
+            "value": "Tanken"
         },
         {
-            "label": "Probiere einen Beruf in einem anderen Bereich aus!"
+            "value": "Sport"
         },
         {
-            "label": "Erreiche deinen idealen Fitnesszustand!"
+            "value": "Putzen"
+        },
+        {
+            "value": "Lernen"
         }
     ]
 }
