@@ -1,17 +1,4 @@
 
-/*
-$.ajax({
-    url: 'JSON/vorschlag.json',
-    dataType: 'json',
-    type: 'get',
-    cache: false,
-    success: function (data) {
-        $(data).each(function (index, value) {
-            console.log(index, value);
-        });
-    }
-});
-*/
 
 let data = [];
 $.getJSON('JSON/vorschlag.json', function(result){
@@ -24,32 +11,6 @@ $.getJSON('JSON/vorschlag.json', function(result){
 $( "#autoCheck" ).autocomplete({
     source: data
 });
-
-
-// $("#autoCheck").autocomplete({
-//     source: function(data, cb){
-//         $.ajax({
-//             url: 'JSON/vorschlag.json',
-//             dataType: 'json',
-//             type: 'get',
-//             // cache: false,
-//             data: {
-//                 value: data.term
-//             },
-//             success: function (res){
-
-//                 let d = $.map(res, function(name){
-//                     return {
-//                         label: name,
-//                         value: name
-//                     };
-
-//                 });
-//                 cb(d);
-//             }
-//         });
-//     }
-// });
 
 
 // Abfrage ob Local Storage vorhanden ist und die richtigen Inhalte hat
