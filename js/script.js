@@ -9,7 +9,10 @@ $.getJSON('JSON/vorschlag.json', function(result){
 });
 
 $( "#autoCheck" ).autocomplete({
-    source: data
+    source: data,
+    autoFocus: true,
+    minLength:2,
+    Delay: 100
 });
 
 
