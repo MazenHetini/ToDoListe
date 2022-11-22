@@ -1,24 +1,26 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap');
 
-*{
-margin: 0;
-padding: 0;
-font-family: 'Titillium Web', sans-serif;
-box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Titillium Web', sans-serif;
+    box-sizing: border-box;
 }
 
-body{
-    background-color: #e67e22;
+body {
+    /* background-color: #2c3e50; */
+    background-image: linear-gradient(180deg, #0fb9b1, #2bcbba);
     min-height: 100vh;
-    padding: 20px;
+    padding-top: 60px;
 }
-.container{
+
+.container {
     max-width: 800px;
     margin: auto;
     padding: 10px;
 }
-.inputValue{
+
+.inputValue {
     width: 100%;
     border: none;
     border-bottom: 2px solid white;
@@ -27,27 +29,80 @@ body{
     outline: none;
     font-size: 18px;
     font-weight: bold;
+    color: white;
+    border-radius: 20px;
 }
-.inputValue::placeholder{
-    color: rgba(255, 255, 255, 0.4);
+
+.inputValue::placeholder {
+    color: white;
     font-weight: normal;
 }
-h3{
-    margin: 10px 0; 
+
+.notcomp,
+.comp {
+    margin-top: 50px;
 }
-.task{
+
+h3 {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.task {
     width: 100%;
     background: rgba(255, 255, 255, 0.5);
-    padding: 18px;
+    padding: 10px 20px;
     margin: 6px 0;
     overflow: hidden;
+    border-radius: 20px;
 }
+
 .task i{
     float: right;
     margin-left: 20px;
     cursor: pointer;
+    padding: 4px;
 }
-.comp .task{
+.notcomp .task i {
+    color: rgba(0, 0, 0, 0.6);
+}
+.notcomp .task i:hover{
+    color: rgba(0, 0, 0, 1);
+}
+.comp .task i {
+    color: rgba(255, 255, 255, 0.6);
+}
+.comp .task i:hover{
+    color: rgba(255, 255, 255, 1);
+}
+
+
+
+
+.comp .task {
     background: rgba(0, 0, 0, 0.5);
     color: white;
+    border-radius: 20px;
+    text-decoration: line-through;
+}
+
+.blink {
+    animation-name: animation_blink;
+    animation-timing-function: ease-in;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes animation_blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

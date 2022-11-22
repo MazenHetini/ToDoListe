@@ -99,7 +99,7 @@ function createCheckIcon(task){
 
     // Der completeIcon-Variable wird ein i-Tag mit einem
     // click Event hinzugefügt
-    let completeIcon = $("<i class='fas fa-check'></i>").click(function(){
+    let completeIcon = $("<i id='check' class='fas fa-check'></i>").click(function(){
 
         // Die completedTask-Variable erhält das Elternelement
         // des angeklickten Check-Icon's
@@ -168,3 +168,14 @@ function addToStorage() {
         localStorage.setItem("Completed", JSON.stringify(compTasksArray));
     };
 };
+
+function blink() {
+    if ($('input[type=text]').attr('placeholder')) {
+     // get the placeholder text
+     $('input[type=text]').attr('placeholder', '');
+    } 
+    else {
+      $('input[type=text]').attr('placeholder', 'Aufgabe Hinzufügen...');
+    }
+    setTimeout(blink, 1000);
+    }
