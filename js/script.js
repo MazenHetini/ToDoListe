@@ -11,8 +11,12 @@ $.getJSON('JSON/vorschlag.json', function(result){
         
     });
 
+    for(let i = 0; i < counter; i++){
+
+    }
+
     
-    console.log(counter)
+    // console.log(counter)
 });
 
 $( "#autoCheck" ).autocomplete({
