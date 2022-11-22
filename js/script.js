@@ -1,11 +1,18 @@
 
 
 let data = [];
+let counter = 0;
+
 $.getJSON('JSON/vorschlag.json', function(result){
 
     $.each(result.tasks, function(index, val){
         data.push(val);
+        counter++;
+        
     });
+
+    
+    console.log(counter)
 });
 
 $( "#autoCheck" ).autocomplete({
@@ -73,7 +80,7 @@ function createDeleteIcon(task){
 
     // Der deleteIcon-Variable wird ein i-Tag mit einem
     // click Event hinzugefügt
-    let deleteIcon = $("<i class='fas fa-trash-alt'></i>").click(function(){
+    let deleteIcon = $("<i id='delete' class='fas fa-trash-alt'></i>").click(function(){
 
         // Die deletedTask-Variable erhält das zu löschende Elternelement
         let deletedTask = $(this).parent();
@@ -178,4 +185,6 @@ function blink() {
       $('input[type=text]').attr('placeholder', 'Aufgabe Hinzufügen...');
     }
     setTimeout(blink, 1000);
-    }
+};
+
+
