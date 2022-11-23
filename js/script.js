@@ -1,22 +1,13 @@
 
-
 let data = [];
 let counter = 0;
-
+let alreadyExists;
+ 
 $.getJSON('JSON/vorschlag.json', function(result){
 
     $.each(result.tasks, function(index, val){
         data.push(val);
-        counter++;
-        
     });
-
-    for(let i = 0; i < counter; i++){
-
-    }
-
-    
-    // console.log(counter)
 });
 
 $( "#autoCheck" ).autocomplete({
@@ -54,10 +45,14 @@ if (localStorage && localStorage.getItem("Not Completed")) {
 };
 
 // Neue Aufgabe wird durch drücken der Enter-Taste hinzugefügt
-$(".inputValue").on("keyup", function(e){
+$(".inputValue").on("keyup", function(e){    
 
     // Die Zahl 13 steht für die Enter Taste
     if (e.keyCode == 13 && $(".inputValue").val() != ""){
+
+        let inputValue = $(".inputValue").val();
+
+        dataJSON(inputValue);
 
         // div-Container wird mit dem Inhalt der Aufgabe erstellt 
         let createTask = $("<div class='task'></div>").text($(".inputValue").val());
@@ -180,15 +175,52 @@ function addToStorage() {
     };
 };
 
-function blink() {
+function blink() {    
     if ($('input[type=text]').attr('placeholder')) {
      // get the placeholder text
      $('input[type=text]').attr('placeholder', '');
     } 
     else {
-      $('input[type=text]').attr('placeholder', 'Aufgabe Hinzufügen...');
+      $('input[type=text]').attr('placeholder', 'Aufgabe hinzufügen...');
     }
-    setTimeout(blink, 1000);
+    setTimeout(blink, 1000);    
+};
+blink();
+
+
+
+function dataJSON(inputValue){
+    $.each(data, function(val){
+
+        let task = this["value"];
+
+        if (task == inputValue){
+
+            alreadyExists = "true";
+            console.log(alreadyExists)
+        };
+    });
+    
+    if ( alreadyExists != "true" && inputValue ){
+
+        let newTask = {"value":inputValue};
+        data.push(newTask);
+
+        let updateJSON = JSON.stringify({tasks:(data)});
+        console.log(updateJSON);
+
+        sendFile(updateJSON);
+    };
+    alreadyExists = "false";
 };
 
-
+function sendFile(updateJSON) {
+    let xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (xhr.status !== 200) return;
+        console.log(xhr.responseText);
+        location.reload();
+    };
+    xhr.open("POST", "vorschlag.php");
+    xhr.send(updateJSON);
+};
