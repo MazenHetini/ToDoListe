@@ -84,7 +84,7 @@ $(window).on("keydown", function suggestionArrowKeys(e){
                 let currentSuggestionText = $(currentSuggestion).text();
                 $(currentSuggestion).addClass("suggestedTasksArrow");
                 $(".inputValue").val(currentSuggestionText);
-                
+
                 positionArrow++;
             };
             console.log(positionArrow)
@@ -94,14 +94,15 @@ $(window).on("keydown", function suggestionArrowKeys(e){
 
             if (positionArrow > startSuggestion || positionArrow == startSuggestion){
                 
+                --positionArrow;
+                
                 let previousSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow];
                 $(previousSuggestion).removeClass("suggestedTasksArrow");
 
                 let currentSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow-1];
                 let currentSuggestionText = $(currentSuggestion).text();
                 $(".inputValue").val(currentSuggestionText);
-                $(currentSuggestion).addClass("suggestedTasksArrow");
-                positionArrow--;
+                $(currentSuggestion).addClass("suggestedTasksArrow");                
             };
             if (positionArrow < startSuggestion){
                 let currentSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow];
@@ -109,6 +110,7 @@ $(window).on("keydown", function suggestionArrowKeys(e){
                 $(".inputValue").val("");
                 positionArrow = 0;
             };
+            console.log(positionArrow)
         };
     };
 });
