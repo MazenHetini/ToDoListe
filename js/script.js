@@ -2,7 +2,7 @@
 
 let data = [];
 let alreadyExists;
-let minLengthAutocomplete = 2;
+let minLengthAutocomplete = 1;
 let positionArrow = 0;
 let startSuggestion = 0;
  
@@ -10,16 +10,8 @@ $.getJSON('JSON/vorschlag.json', function(result){
 
     $.each(result.tasks, function(index, val){
         data.push(val);
-
     });
 });
-
-// $("#autoCheck").autocomplete({
-//     source: data,
-//     autoFocus: true,
-//     minLength:2,
-//     Delay: 100
-// });
 
 $(".inputValue").on("input",function taskSuggestion(){
 
@@ -28,8 +20,7 @@ $(".inputValue").on("input",function taskSuggestion(){
 
     let inputValue = $(".inputValue").val();
 
-    if(inputValue.length == minLengthAutocomplete ||
-        inputValue.length > minLengthAutocomplete){
+    if(inputValue.length >= minLengthAutocomplete){
 
         $.each(data, function(val){
 
@@ -40,7 +31,7 @@ $(".inputValue").on("input",function taskSuggestion(){
                 let suggestion = $("<li class='suggestedTasks'></li>").text(this["value"]).on("click", function(){
                     $(".inputValue").val(currentTask);
                     $(".inputValue").focus();
-                    closeSuggestions();                    
+                    closeSuggestions();
                 });
                 openSuggestion(suggestion);
             };
@@ -85,16 +76,14 @@ $(window).on("keydown", function suggestionArrowKeys(e){
                 let currentSuggestionText = $(currentSuggestion).text();
                 $(".inputValue").val(currentSuggestionText);
                 $(currentSuggestion).addClass("suggestedTasksArrow");
-
-                positionArrow++;
             };
-            if (positionArrow == startSuggestion || !positionArrow ){
+            if (positionArrow == startSuggestion){
                 let currentSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow];
                 let currentSuggestionText = $(currentSuggestion).text();
                 $(currentSuggestion).addClass("suggestedTasksArrow");
                 $(".inputValue").val(currentSuggestionText);
-                positionArrow++;
             };
+            positionArrow++;
         };
 
         if(e.keyCode == 38){
@@ -138,7 +127,7 @@ function positionSuggestionContainer(){
 
     // Margin top vom input-Tag auf
     // marginTopInputTag schreiben
-    let marginTopInputTag = $(".inputValue").css("marginTop").replace("px","");
+    let marginTopInputTag = $(getInputTag).css("marginTop").replace("px","");
 
     // CSS-Attribute für die Position von containerSuggestion
     // setzen damit containerSuggestion immer unter input-Tag bleibt
@@ -322,7 +311,7 @@ function blink() {
     }
     setTimeout(blink, 1000);    
 };
-// blink();
+blink();
 
 function dataJSON(inputValue){
     $.each(data, function(val){
