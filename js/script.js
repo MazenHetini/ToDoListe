@@ -76,14 +76,18 @@ $(window).on("keydown", function suggestionArrowKeys(e){
                 let currentSuggestionText = $(currentSuggestion).text();
                 $(".inputValue").val(currentSuggestionText);
                 $(currentSuggestion).addClass("suggestedTasksArrow");
+                
+                positionArrow++;
             };
             if (positionArrow == startSuggestion){
                 let currentSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow];
                 let currentSuggestionText = $(currentSuggestion).text();
                 $(currentSuggestion).addClass("suggestedTasksArrow");
                 $(".inputValue").val(currentSuggestionText);
+                
+                positionArrow++;
             };
-            positionArrow++;
+            console.log(positionArrow)
         };
 
         if(e.keyCode == 38){
