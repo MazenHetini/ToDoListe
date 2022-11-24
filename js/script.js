@@ -1,22 +1,156 @@
+"use strict"
 
 let data = [];
-let counter = 0;
 let alreadyExists;
+let minLengthAutocomplete = 2;
+let positionArrow = 0;
+let startSuggestion = 0;
  
 $.getJSON('JSON/vorschlag.json', function(result){
 
     $.each(result.tasks, function(index, val){
         data.push(val);
+
     });
 });
 
-$( "#autoCheck" ).autocomplete({
-    source: data,
-    autoFocus: true,
-    minLength:2,
-    Delay: 100
+// $("#autoCheck").autocomplete({
+//     source: data,
+//     autoFocus: true,
+//     minLength:2,
+//     Delay: 100
+// });
+
+$(".inputValue").on("input",function taskSuggestion(){
+
+    $("#containerSuggestion ul").children(".suggestedTasks").remove();
+    $("#containerSuggestion").css("display", "none");
+
+    let inputValue = $(".inputValue").val();
+
+    if(inputValue.length == minLengthAutocomplete ||
+        inputValue.length > minLengthAutocomplete){
+
+        $.each(data, function(val){
+
+            let currentTask = this["value"];
+
+            if(currentTask.toLowerCase().match("^"+inputValue.toLowerCase())){
+
+                let suggestion = $("<li class='suggestedTasks'></li>").text(this["value"]).on("click", function(){
+                    $(".inputValue").val(currentTask);
+                    $(".inputValue").focus();
+                    closeSuggestions();                    
+                });
+                openSuggestion(suggestion);
+            };
+        });
+    };
 });
 
+function closeSuggestions(){    
+    $("#containerSuggestion").css("display", "none");
+    $("#containerSuggestion ul").children(".suggestedTasks").remove();
+    positionArrow = 0;
+};
+
+function openSuggestion(suggestion){
+    $("#containerSuggestion ul").append(suggestion);
+    $("#containerSuggestion").css("display", "block");
+};
+
+$(".inputValue").on("blur", function(){
+    if($(".inputValue").val() == ""){
+        closeSuggestions();
+    };
+});
+
+$(window).on("keydown", function suggestionArrowKeys(e){
+
+    if($("#containerSuggestion").css("display") == "block"){
+
+        let suggestionCount = $("#containerSuggestion ul").children(".suggestedTasks").length;
+
+        // Pfeiltaste hoch ist 38
+        // Pfeiltaste runter ist 40
+
+        if(e.keyCode == 40){
+
+            if (positionArrow > startSuggestion && positionArrow < suggestionCount){
+                
+                let previousSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow-1];
+                $(previousSuggestion).removeClass("suggestedTasksArrow");
+
+                let currentSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow];
+                let currentSuggestionText = $(currentSuggestion).text();
+                $(".inputValue").val(currentSuggestionText);
+                $(currentSuggestion).addClass("suggestedTasksArrow");
+
+                positionArrow++;
+            };
+            if (positionArrow == startSuggestion || !positionArrow ){
+                let currentSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow];
+                let currentSuggestionText = $(currentSuggestion).text();
+                $(currentSuggestion).addClass("suggestedTasksArrow");
+                $(".inputValue").val(currentSuggestionText);
+                positionArrow++;
+            };
+        };
+
+        if(e.keyCode == 38){
+
+            if (positionArrow > startSuggestion || positionArrow == startSuggestion){
+                
+                let previousSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow];
+                $(previousSuggestion).removeClass("suggestedTasksArrow");
+
+                let currentSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow-1];
+                let currentSuggestionText = $(currentSuggestion).text();
+                $(".inputValue").val(currentSuggestionText);
+                $(currentSuggestion).addClass("suggestedTasksArrow");
+                positionArrow--;
+            };
+            if (positionArrow < startSuggestion){
+                let currentSuggestion = $("#containerSuggestion ul").children(".suggestedTasks")[positionArrow];
+                $(currentSuggestion).removeClass("suggestedTasksArrow");
+                $(".inputValue").val("");
+                positionArrow = 0;
+            };
+        };
+    };
+});
+
+function positionSuggestionContainer(){
+
+    // Alle Daten vom input-Tag auf getInputTag schreiben
+    let getInputTag = $(".inputValue");
+
+    // Koordinaten vom input-Tag auf positionInputTag schreiben
+    let positionsInputTag = getInputTag.position();
+
+    // Gesamthöhe (inkl. padding und border) vom input-Tag
+    // auf heightInputTag schreiben
+    let heightInputTag = getInputTag.outerHeight();
+
+    // Gesamtbreite (inkl. padding) vom input-Tag
+    // auf widthInputTag schreiben
+    let widthInputTag = getInputTag.outerWidth();
+
+    // Margin top vom input-Tag auf
+    // marginTopInputTag schreiben
+    let marginTopInputTag = $(".inputValue").css("marginTop").replace("px","");
+
+    // CSS-Attribute für die Position von containerSuggestion
+    // setzen damit containerSuggestion immer unter input-Tag bleibt
+    $("#containerSuggestion").css("left", positionsInputTag.left);
+    $("#containerSuggestion").css("top", positionsInputTag.top + heightInputTag + marginTopInputTag);
+    $("#containerSuggestion").css("width", widthInputTag);
+};
+
+$(window).on("resize", function (){    
+    positionSuggestionContainer();
+})
+positionSuggestionContainer();
 
 // Abfrage ob Local Storage vorhanden ist und die richtigen Inhalte hat
 if (localStorage && localStorage.getItem("Not Completed")) {
@@ -67,6 +201,9 @@ $(".inputValue").on("keyup", function(e){
 
         // Das Eingabefeld wird geleert
         $(".inputValue").val("");
+
+        // Die Liste aller Vorschläge ausblenden und löschen
+        closeSuggestions();
 
         // Die Local Storage wird durch aufruf der Funktion
         // "addToStorage" aktualisiert
@@ -185,9 +322,7 @@ function blink() {
     }
     setTimeout(blink, 1000);    
 };
-blink();
-
-
+// blink();
 
 function dataJSON(inputValue){
     $.each(data, function(val){
@@ -195,9 +330,7 @@ function dataJSON(inputValue){
         let task = this["value"];
 
         if (task == inputValue){
-
             alreadyExists = "true";
-            console.log(alreadyExists)
         };
     });
     
@@ -207,7 +340,6 @@ function dataJSON(inputValue){
         data.push(newTask);
 
         let updateJSON = JSON.stringify({tasks:(data)});
-        console.log(updateJSON);
 
         sendFile(updateJSON);
     };
